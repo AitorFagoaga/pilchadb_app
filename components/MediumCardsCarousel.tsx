@@ -1,7 +1,9 @@
 import React, { useRef } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import { useRouter } from "expo-router";
+
 export type Card = {
   id: number;
   title: string;
@@ -14,7 +16,19 @@ interface Props {
 }
 
 const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
+  const router = useRouter();
   const scrollViewRef = useRef<ScrollView>(null);
+
+  const handleCardPress = (card: Card) => {
+    router.push({
+      pathname: "/(screens)/brand/[id]",
+      params: {
+        id: card.id,
+        title: card.title,
+        imageUrl: card.imageUrl,
+      },
+    });
+  };
 
   return (
     <View className="relative p-4">
@@ -27,7 +41,12 @@ const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
         className="flex-row space-x-4"
       >
         {cards.map((card) => (
-          <View key={card.id} className="w-[170px]">
+          <TouchableOpacity
+            key={card.id}
+            onPress={() => handleCardPress(card)}
+            activeOpacity={0.7}
+            className="w-[170px]"
+          >
             <View className="h-[240px] rounded-lg overflow-hidden">
               <Image
                 source={{ uri: card.imageUrl }}
@@ -50,7 +69,7 @@ const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
                 color="white"
               />
             </View>
-          </View>
+          </TouchableOpacity>
         ))}
       </ScrollView>
     </View>

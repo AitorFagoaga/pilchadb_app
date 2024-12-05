@@ -1,33 +1,15 @@
-import { View, StatusBar } from "react-native";
-import { useFonts } from "expo-font";
-import { useEffect } from "react";
-import * as SplashScreen from "expo-splash-screen";
-import Navigation from "./navigation";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-
-SplashScreen.preventAutoHideAsync();
-
+// app/_layout.tsx
+import { Stack, Tabs } from "expo-router";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { StatusBar } from "expo-status-bar";
 export default function RootLayout() {
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle="light-content" />
-      <View className="flex-1 bg-[#121212]">
-        <Navigation />
-      </View>
-    </SafeAreaProvider>
+    <>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="(screens)" />
+      </Stack>
+    </>
   );
 }

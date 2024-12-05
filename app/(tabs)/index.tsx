@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MediumCardsCarousel, {
   Card,
 } from "../../components/MediumCardsCarousel";
+import Logo from "../../components/Logo";
 
 type CarouselData = {
   id: number;
@@ -13,7 +14,7 @@ type CarouselData = {
 const DATA: CarouselData[] = [
   {
     id: 1,
-    title: "Carousel 1",
+    title: "Marcas mejor valoradas",
     cards: [
       {
         id: 1,
@@ -37,7 +38,7 @@ const DATA: CarouselData[] = [
   },
   {
     id: 2,
-    title: "Carousel 2",
+    title: "Marcas que venden Hoodies",
     cards: [
       {
         id: 1,
@@ -62,14 +63,16 @@ export default function HomeScreen() {
 
   return (
     <View style={{ paddingTop: insets.top }} className="flex-1 bg-[#121212]">
+      <Logo />
       <FlatList
-        className="flex-1 mt-4"
+        className="flex-1"
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingBottom: insets.bottom,
+          marginTop: 30,
         }}
       />
     </View>

@@ -1,14 +1,9 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Tabs } from "expo-router";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import HomeScreen from "../screens/HomeScreen";
-import ExploreScreen from "../screens/ExploreScreen";
-import WardrobeScreen from "../screens/WardrobeScreen";
 
-const Tab = createBottomTabNavigator();
-
-export default function Navigation() {
+export default function TabsLayout() {
   return (
-    <Tab.Navigator
+    <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
@@ -20,36 +15,41 @@ export default function Navigation() {
         tabBarInactiveTintColor: "gray",
       }}
     >
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
+      {/* Tab de Home */}
+      <Tabs.Screen
+        name="index"
         options={{
+          title: "Home",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={28} />
           ),
           tabBarLabel: () => null,
         }}
       />
-      <Tab.Screen
-        name="Explore"
-        component={ExploreScreen}
+
+      {/* Tab de Explore */}
+      <Tabs.Screen
+        name="explore"
         options={{
+          title: "Explore",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="magnify" color={color} size={28} />
           ),
           tabBarLabel: () => null,
         }}
       />
-      <Tab.Screen
-        name="Wardrobe"
-        component={WardrobeScreen}
+
+      {/* Tab de Wardrobe */}
+      <Tabs.Screen
+        name="wardrobe"
         options={{
+          title: "Wardrobe",
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="wardrobe" color={color} size={28} />
           ),
           tabBarLabel: () => null,
         }}
       />
-    </Tab.Navigator>
+    </Tabs>
   );
 }
