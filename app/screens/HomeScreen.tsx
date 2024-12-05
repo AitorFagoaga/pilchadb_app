@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import MediumCardsCarousel, {
   Card,
@@ -24,8 +24,14 @@ const DATA: CarouselData[] = [
       {
         id: 2,
         imageUrl:
-          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnI7CZhbCxfVfZ5OT4gCizd0NPKUwsZt9H5A&s",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR59tL0hRmFbmhQcCT7qOS7cN9E_JogW2rRhQ&s",
         title: "Item 1.2",
+      },
+      {
+        id: 3,
+        imageUrl:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAoB_srHFws2ppHorwoHPD3wE3EBXQ-C5n0A&s",
+        title: "Item 1.3",
       },
     ],
   },
@@ -57,7 +63,7 @@ export default function HomeScreen() {
   return (
     <View style={{ paddingTop: insets.top }} className="flex-1 bg-[#121212]">
       <FlatList
-        className="flex-1"
+        className="flex-1 mt-4"
         data={DATA}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}

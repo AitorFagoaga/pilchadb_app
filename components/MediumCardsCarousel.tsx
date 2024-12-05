@@ -27,7 +27,7 @@ const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
         className="flex-row space-x-4"
       >
         {cards.map((card) => (
-          <View key={card.id} className="w-[160px]">
+          <View key={card.id} className="w-[170px]">
             <View className="h-[240px] rounded-lg overflow-hidden">
               <Image
                 source={{ uri: card.imageUrl }}
