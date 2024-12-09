@@ -77,7 +77,6 @@ export default function ExploreScreen() {
 
   const handleSearch = async (query: string) => {
     try {
-      console.log("Buscando:", query);
     } catch (error) {
       console.error("Error en la búsqueda:", error);
     }
@@ -88,11 +87,18 @@ export default function ExploreScreen() {
       {/* Logo */}
       <Logo />
 
-      {/* SearchBar */}
-      <View className="mt-14">
-        <SearchBar onSearch={handleSearch} placeholder="Search items..." />
+      {/* Contenedor principal */}
+      <View className="flex-1">
+        {/* SearchBar con margen superior ajustado */}
+        <View className="mt-14 mb-2 z-20">
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Search items..."
+            key="explore"
+          />
+        </View>
 
-        {/* ScrollView para los BrandCards */}
+        {/* ScrollView para el contenido */}
         <ScrollView
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
@@ -100,7 +106,6 @@ export default function ExploreScreen() {
           }}
         >
           <CarouselGarment title="Prendas destacadas" cards={DATA_GARMENT} />
-          {/* BrandCard */}
           <BrandCard title="Marcas destacadas" cards={DATA} />
         </ScrollView>
       </View>

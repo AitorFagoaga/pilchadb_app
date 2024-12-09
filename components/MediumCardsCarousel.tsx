@@ -1,8 +1,15 @@
 import React, { useRef } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { Image } from "expo-image";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
+import AntDesign from "@expo/vector-icons/AntDesign";
 
 export type Card = {
   id: number;
@@ -31,45 +38,54 @@ const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
   };
 
   return (
-    <View className="relative p-4">
-      <Text className="text-xl text-white font-bold mb-4">{title}</Text>
+    <View className="relative mt-4">
+      {/* Título del carrusel */}
+      <Text className="text-md text-white font-bold mb-4 ml-4">{title}</Text>
 
+      {/* ScrollView con padding inicial */}
       <ScrollView
         ref={scrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="flex-row space-x-4"
+        contentContainerStyle={{
+          paddingLeft: 16,
+        }}
+        className="flex-row space-x-2"
       >
         {cards.map((card) => (
-          <TouchableOpacity
-            key={card.id}
-            onPress={() => handleCardPress(card)}
-            activeOpacity={0.7}
-            className="w-[170px]"
-          >
-            <View className="h-[240px] rounded-lg overflow-hidden">
-              <Image
-                source={{ uri: card.imageUrl }}
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
-                contentFit="cover"
-                transition={200}
-              />
+          <View key={card.id}>
+            <TouchableOpacity
+              onPress={() => handleCardPress(card)}
+              activeOpacity={0.7}
+              className="w-[120px]"
+            >
+              <View className="h-[130px] rounded-t-lg overflow-hidden">
+                <Image
+                  source={{ uri: card.imageUrl }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  contentFit="cover"
+                  transition={200}
+                />
+              </View>
+            </TouchableOpacity>
+            <View className="flex-row drop-shadow-lg rounded-b-lg justify-between items-center p-3 bg-[#1E1E1E]">
+              <View className="flex-row items-center">
+                <AntDesign name="star" size={15} color="gold" />
+                <Text className="text-white text-md font-bold ml-1">7.2</Text>
+              </View>
+              <Pressable>
+                <FontAwesome6
+                  name="bookmark"
+                  size={15}
+                  className="mr-4"
+                  color="white"
+                />
+              </Pressable>
             </View>
-            <View className="flex-row justify-between items-center mt-2">
-              <Text className="text-sm font-medium text-white flex-1 mr-2">
-                {card.title}
-              </Text>
-              <FontAwesome6
-                name="bookmark"
-                size={15}
-                className="mr-4"
-                color="white"
-              />
-            </View>
-          </TouchableOpacity>
+          </View>
         ))}
       </ScrollView>
     </View>

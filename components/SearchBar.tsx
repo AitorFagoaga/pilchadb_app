@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, TextInput, TouchableOpacity } from "react-native";
+import { View, TextInput, Pressable } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
 interface SearchBarProps {
@@ -7,36 +7,43 @@ interface SearchBarProps {
   placeholder?: string;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  onSearch,
-  placeholder = "Search...",
-}) => {
-  const [searchQuery, setSearchQuery] = useState("");
+const SearchBar = ({ onSearch, placeholder = "Search..." }: SearchBarProps) => {
+  const [text, setText] = useState("");
 
-  const handleSearch = (text: string) => {
-    setSearchQuery(text);
-    onSearch(text);
+  const handleChangeText = (value: string) => {
+    setText(value);
+    onSearch(value);
   };
 
   const handleClear = () => {
-    setSearchQuery("");
+    setText("");
     onSearch("");
   };
 
   return (
-    <View className="flex-row items-center bg-[#1E1E1E] mx-4 rounded-lg px-4 h-10">
-      <FontAwesome name="search" size={16} color="#666" />
+    <View className="flex-row items-center mx-4 px-4 h-10 bg-[#1E1E1E] rounded-xl">
+      <FontAwesome
+        name="search"
+        size={16}
+        color="#666"
+        style={{ marginRight: 8 }}
+      />
       <TextInput
-        className="flex-1 ml-2 text-white"
+        value={text}
+        onChangeText={handleChangeText}
         placeholder={placeholder}
         placeholderTextColor="#666"
-        value={searchQuery}
-        onChangeText={handleSearch}
+        className="flex-1 text-base text-white"
+        autoCapitalize="none"
+        autoCorrect={false}
       />
-      {searchQuery.length > 0 && (
-        <TouchableOpacity onPress={handleClear}>
+      {text.length > 0 && (
+        <Pressable
+          onPress={handleClear}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        >
           <FontAwesome name="times-circle" size={16} color="#666" />
-        </TouchableOpacity>
+        </Pressable>
       )}
     </View>
   );

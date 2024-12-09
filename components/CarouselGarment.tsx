@@ -31,13 +31,16 @@ const CarouselGarment: React.FC<Props> = ({ title, cards }) => {
   };
 
   return (
-    <View className="relative p-4">
-      <Text className="text-xl text-white font-bold mb-4">{title}</Text>
+    <View className="relative p-0 ">
+      <Text className="text-xl text-white font-bold mb-4 ml-4">{title}</Text>
 
       <ScrollView
         ref={scrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingLeft: 16,
+        }}
         className="flex-row space-x-4"
       >
         {cards.map((card) => (
