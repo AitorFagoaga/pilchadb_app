@@ -31,7 +31,7 @@ const CarouselGarment: React.FC<Props> = ({ title, cards }) => {
   };
 
   return (
-    <View className="relative p-0 ">
+    <View className="relative p-0 mt-4">
       <Text className="text-xl text-white font-bold mb-4 ml-4">{title}</Text>
 
       <ScrollView

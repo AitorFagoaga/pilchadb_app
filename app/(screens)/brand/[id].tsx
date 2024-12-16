@@ -5,6 +5,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import BrandProfileHeader from "@/components/BrandProfileHeader";
 import LinksAndSaveBrand from "@/components/LinksAndSaveBrand";
 import HorizontalList from "@/components/HorizontalList";
+import Chip from "@/components/Chip";
 
 export default function BrandDetailScreen() {
   const insets = useSafeAreaInsets();
@@ -48,7 +49,7 @@ export default function BrandDetailScreen() {
             />
           </View>
           <View className="flex-row justify-between p-4">
-            <View className="">
+            <View>
               <Text className="text-white text-2xl font-bold">{title}</Text>
             </View>
             <FontAwesome6
@@ -58,7 +59,20 @@ export default function BrandDetailScreen() {
               style={{ marginRight: 13 }}
             />
           </View>
-
+          <ScrollView
+            horizontal
+            className="flex-row flex-wrap mt-2"
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              paddingLeft: 16,
+            }}
+          >
+            <Chip label="Streetwear" />
+            <Chip label="Urban" />
+            <Chip label="Casual" />
+            <Chip label="Streetwear" />
+            <Chip label="Urban" />
+          </ScrollView>
           <LinksAndSaveBrand />
           <HorizontalList
             title="Tipo de prendas"

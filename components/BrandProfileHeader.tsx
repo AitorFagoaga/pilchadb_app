@@ -1,7 +1,10 @@
-import { View, Image, Text } from "react-native";
+import { useState } from "react";
+import { View, Image, Modal, Text, TouchableOpacity } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import RateBrandModal from "./RateBrandModal";
+
 interface BrandProfileHeaderProps {
   backgroundImage: string;
   foregroundImage: string;
@@ -15,6 +18,7 @@ export default function BrandProfileHeader({
   rating = 7.2,
   qualityScore = 7,
 }: BrandProfileHeaderProps) {
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View className="relative">
       {/* Imagen de fondo */}
@@ -25,17 +29,17 @@ export default function BrandProfileHeader({
       />
 
       {/* Contenido superpuesto */}
-      <View className="absolute flex-row top-16 left-16">
+      <View className="absolute flex-row top-16 left-16 mt-2">
         {/* Imagen principal */}
         <Image
           source={{ uri: foregroundImage }}
-          className="w-28 h-40 rounded-md"
+          className="w-28 h-38 rounded-md"
           resizeMode="cover"
         />
 
         {/* Calificación y opciones */}
-        <View className="flex-col">
-          <View className="flex-row ml-6 mt-6">
+        <View className="flex-col ml-8">
+          <View className="flex-row ml-6 mt-4">
             {/* Calificación con estrella */}
             <View className="flex-col ">
               <View className="flex-row items-center ">
@@ -51,20 +55,25 @@ export default function BrandProfileHeader({
             {/* Opciones: Puntuar y Reseñas */}
             <View className="flex-row justify-between ">
               {/* Puntuar */}
-              <View className="flex items-center ml-6">
-                <AntDesign name="staro" size={24} color="red" />
-                <Text className="text-white text-xs mt-1">Puntuar</Text>
-              </View>
+              <TouchableOpacity
+                className="flex items-center ml-10"
+                onPress={() => setModalVisible(true)}
+              >
+                <AntDesign name="staro" size={24} color="white" />
+                <Text className="text-white text-xs text-semibold mt-1">
+                  Valorar
+                </Text>
+              </TouchableOpacity>
 
               {/* Reseñas */}
-              <View className="flex items-center ml-6">
+              {/*<View className="flex items-center ml-6">
                 <MaterialCommunityIcons
                   name="comment-text-outline"
                   size={24}
                   color="white"
                 />
                 <Text className="text-white text-xs mt-1">Reseñas</Text>
-              </View>
+              </View>*/}
             </View>
           </View>
           {/* Calidad */}
@@ -83,6 +92,24 @@ export default function BrandProfileHeader({
           </View>
         </View>
       </View>
+
+      {/* Modal de valoración */}
+      <Modal
+        transparent={true}
+        visible={modalVisible}
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <RateBrandModal
+          onClose={() => setModalVisible(false)}
+          onSubmit={(brandRating, qualityRating) => {
+            console.log("Valoración enviada:");
+            console.log("Valoración de la marca:", brandRating);
+            console.log("Valoración de la calidad:", qualityRating);
+            setModalVisible(false);
+          }}
+        />
+      </Modal>
     </View>
   );
 }

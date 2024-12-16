@@ -23,7 +23,7 @@ const HorizontalList: React.FC<Props> = ({ title, items, onPress }) => {
       <Text className="text-white text-sm ml-7 font-medium mb-2 ">{title}</Text>
 
       {/* Línea divisoria */}
-      <View className="w-full h-[1px] bg-gray-600 mb-4">
+      <View className="w-full h-[0.5px] bg-white mb-4">
         <View
           style={{ width: estimatedWidth }}
           className="absolute bg-black h-full ml-4"

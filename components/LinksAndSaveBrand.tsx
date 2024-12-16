@@ -45,20 +45,6 @@ const LinksAndSaveBrand = () => {
           <Text className="text-white text-xs font-light">Website</Text>
         </Pressable>
       </View>
-      <View className="flex-row gap-4">
-        <View className="flex items-center ml-6">
-          <AntDesign name="staro" size={24} color="red" />
-          <Text className="text-white text-xs mt-1">Puntuar</Text>
-        </View>
-        <View className="flex items-center ">
-          <MaterialCommunityIcons
-            name="comment-text-outline"
-            size={24}
-            color="white"
-          />
-          <Text className="text-white text-xs mt-1">Reseñas</Text>
-        </View>
-      </View>
     </View>
   );
 };

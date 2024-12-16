@@ -1,15 +1,9 @@
 import React, { useRef } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  Pressable,
-} from "react-native";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { Image } from "expo-image";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import BookmarkButton from "./BookMarkButton";
 
 export type Card = {
   id: number;
@@ -38,7 +32,7 @@ const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
   };
 
   return (
-    <View className="relative mt-4">
+    <View className="relative mt-8">
       {/* Título del carrusel */}
       <Text className="text-md text-white font-bold mb-4 ml-4">{title}</Text>
 
@@ -76,14 +70,8 @@ const MediumCardsCarousel: React.FC<Props> = ({ title, cards }) => {
                 <AntDesign name="star" size={15} color="gold" />
                 <Text className="text-white text-md font-bold ml-1">7.2</Text>
               </View>
-              <Pressable>
-                <FontAwesome6
-                  name="bookmark"
-                  size={15}
-                  className="mr-4"
-                  color="white"
-                />
-              </Pressable>
+              {/* Botón Bookmark */}
+              <BookmarkButton cardId={card.id} />
             </View>
           </View>
         ))}

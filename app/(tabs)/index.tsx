@@ -20,31 +20,31 @@ const DATA: CarouselData[] = [
         id: 1,
         imageUrl:
           "https://anacleta.com.ar/wp-content/uploads/2022/09/0071_Kosiuko.png",
-        title: "Item 1.1",
+        title: "Kosiuko",
       },
       {
         id: 2,
         imageUrl:
           "https://mir-s3-cdn-cf.behance.net/project_modules/1400/04d54687806377.5dc321cdac09f.png",
-        title: "Item 1.2",
+        title: "Underwave",
       },
       {
         id: 3,
         imageUrl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAoB_srHFws2ppHorwoHPD3wE3EBXQ-C5n0A&s",
-        title: "Item 1.3",
+        title: "Etiqueta Negra",
       },
       {
         id: 4,
         imageUrl:
           "https://yt3.googleusercontent.com/Guz1QjoTQHtwOTAuSXcmG7mz10sKULzURDxQYB4f2qd_fJD0xEPwKhx32m7kiRlOzDShP51H=s900-c-k-c0x00ffffff-no-rj",
-        title: "Item 1.3",
+        title: "Harvey Willys",
       },
       {
         id: 5,
         imageUrl:
           "https://static.vecteezy.com/system/resources/previews/023/869/641/non_2x/levis-brand-clothes-logo-symbol-design-fashion-illustration-free-vector.jpg",
-        title: "Item 1.3",
+        title: "Levis",
       },
     ],
   },
@@ -53,16 +53,16 @@ const DATA: CarouselData[] = [
     title: "Marcas que venden Hoodies",
     cards: [
       {
-        id: 1,
+        id: 6,
         imageUrl:
           "https://yt3.googleusercontent.com/Guz1QjoTQHtwOTAuSXcmG7mz10sKULzURDxQYB4f2qd_fJD0xEPwKhx32m7kiRlOzDShP51H=s900-c-k-c0x00ffffff-no-rj",
-        title: "Item 2.1",
+        title: "Harvey Willys",
       },
       {
-        id: 2,
+        id: 7,
         imageUrl:
           "https://static.vecteezy.com/system/resources/previews/023/869/641/non_2x/levis-brand-clothes-logo-symbol-design-fashion-illustration-free-vector.jpg",
-        title: "Item 2.2",
+        title: "Levis",
       },
     ],
   },

@@ -11,16 +11,17 @@ const Logo = ({ isLogin = false }: LogoProps) => {
   const router = useRouter();
 
   const handleLoginPress = () => {
-    router.push("/(screens)/login/LoginScreen");
+    router.push("/(screens)/login/UserTypeSelection");
   };
 
   return (
-    <View className="absolute h-24 top-0 left-0 right-0 mb-6 mt-4 items-center justify-center z-10 bg-[#121212]">
+    <View className="absolute h-24 top-0 left-0 right-0 mb-6 mt-6 items-center justify-center  bg-[#121212]">
       {!isLogin && (
         <Pressable
           onPress={handleLoginPress}
+          style={{ zIndex: 10 }}
           className="absolute left-4 top-1/2 transform -translate-y-1/2"
-          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+          hitSlop={{ top: 20, bottom: 20, left: 20, right: 20 }}
         >
           <MaterialCommunityIcons
             name="account-circle-outline"

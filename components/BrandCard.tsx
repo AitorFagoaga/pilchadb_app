@@ -4,7 +4,7 @@ import { Image } from "expo-image";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useRouter } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
-
+import BookmarkButton from "./BookMarkButton";
 export type Card = {
   id: number;
   title: string;
@@ -37,7 +37,7 @@ const BrandCard: React.FC<Props> = ({ title, cards }) => {
   }
 
   return (
-    <View className="relative p-0">
+    <View className="relative p-0 mt-4">
       <Text className="text-xl text-white font-bold ml-4 mb-4">{title}</Text>
 
       <View className="flex-wrap flex-row ml-4">
@@ -68,10 +68,13 @@ const BrandCard: React.FC<Props> = ({ title, cards }) => {
                 </TouchableOpacity>
                 {/* Título e ícono */}
                 <View className="flex-row w-[130px] drop-shadow-lg rounded-b-lg justify-between items-center p-3 bg-[#1E1E1E] ">
-                  <Text className="text-sm font-medium text-white flex-1 ml-2">
-                    7.2
-                  </Text>
-                  <FontAwesome6 name="bookmark" size={20} color="white" />
+                  <View className="flex-row items-center">
+                    <AntDesign name="star" size={15} color="gold" />
+                    <Text className="text-white text-md font-bold ml-1">
+                      7.2
+                    </Text>
+                  </View>
+                  <BookmarkButton cardId={card.id} />
                 </View>
               </View>
             ))}
