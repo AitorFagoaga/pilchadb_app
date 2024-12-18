@@ -61,6 +61,7 @@ console.log('form', username, email, password, age);
   
       const responseData = await registerUser(userData); 
       Alert.alert("Éxito", `Usuario registrado: ${responseData.username}`);
+      router.push("./LoginScreen");
     } catch (error: any) {
       Alert.alert("Error", error.message);
     }

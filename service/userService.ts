@@ -11,10 +11,14 @@ export interface RegisterUserData {
     isBrand: boolean;
   }
 
+  export interface LoginUserData {
+    email: string;
+    password: string;
+  }
+
 const API_BASE_URL = Constants.expoConfig?.extra?.apiBaseUrl ;
 console.log("API_BASE_URL",API_BASE_URL);
 
-  
   export const registerUser = async (userData: RegisterUserData): Promise<any> => {
     console.log("datos",userData);
     
@@ -33,6 +37,29 @@ console.log("API_BASE_URL",API_BASE_URL);
       }
   
       return await response.json();
+    } catch (error: any) {
+      throw new Error(error.message || 'Error de red');
+    }
+  };
+
+  export const loginUser = async (userData: LoginUserData): Promise<any> => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      const responseText = await response.text();
+      console.log('Respuesta del servidor:', responseText);
+  
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}: ${responseText}`);
+      }
+  
+      return JSON.parse(responseText);
     } catch (error: any) {
       throw new Error(error.message || 'Error de red');
     }
