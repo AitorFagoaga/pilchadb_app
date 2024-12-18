@@ -28,7 +28,7 @@ export default function UserForm({
       <FormInput
         label="Nombre Completo"
         placeholder="Nombre completo"
-        onChangeText={(value) => handleInputChange("fullName", value)}
+        onChangeText={(value) => handleInputChange("username", value)}
       />
 
       <FormInput
@@ -42,13 +42,6 @@ export default function UserForm({
         placeholder="Edad"
         keyboardType="numeric"
         onChangeText={(value) => handleInputChange("age", value)}
-      />
-
-      <FormPicker
-        label="País"
-        value={country}
-        onValueChange={setCountry}
-        options={countryOptions}
       />
 
       <FormInput

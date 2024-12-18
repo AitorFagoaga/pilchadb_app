@@ -13,7 +13,8 @@ import BrandForm from "./BrandForm";
 import UserForm from "./UserForm";
 import { useLocalSearchParams } from "expo-router";
 import { useRouter } from "expo-router";
-
+import { registerUser } from '../../../service/userService';
+import { Alert } from 'react-native';
 export default function CreateUser() {
   const router = useRouter();
   const { userType } = useLocalSearchParams();
@@ -24,7 +25,7 @@ export default function CreateUser() {
   const [country, setCountry] = useState("");
   const [category, setCategory] = useState("");
   const [form, setForm] = useState({
-    fullName: "",
+    username: "",
     email: "",
     age: "",
     password: "",
@@ -39,10 +40,33 @@ export default function CreateUser() {
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
-  const submitForm = () => {
-    console.log("Submitted data:", form);
-    // Aquí puedes manejar el envío de los datos
+  const handleRegister = async () => {
+    const { username, email, password, age } = form;
+console.log('form', username, email, password, age);
+  
+    if (!username || !email || !password || !age) {
+      Alert.alert("Error", "Todos los campos son obligatorios");
+      return;
+    }
+  
+    try {
+      const userData = {
+        username: form.username,
+        email: form.email,
+        password: form.password,
+        age: parseInt(form.age),
+        isPremium: false,
+        isBrand: false,
+      };
+  
+      const responseData = await registerUser(userData); 
+      Alert.alert("Éxito", `Usuario registrado: ${responseData.username}`);
+    } catch (error: any) {
+      Alert.alert("Error", error.message);
+    }
   };
+  
+
 
   return (
     <ScrollView
@@ -68,7 +92,7 @@ export default function CreateUser() {
           category={category}
           setCategory={setCategory}
           handleInputChange={handleInputChange}
-          submitForm={submitForm}
+          submitForm={handleRegister}
         />
       ) : (
         // Formulario de Usuario Persona
@@ -76,7 +100,7 @@ export default function CreateUser() {
           country={country}
           setCountry={setCountry}
           handleInputChange={handleInputChange}
-          submitForm={submitForm}
+          submitForm={handleRegister}
         />
       )}
     </ScrollView>
