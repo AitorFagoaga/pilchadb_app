@@ -2,16 +2,16 @@ import React from "react";
 import { View, Image, Pressable } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useRouter } from "expo-router";
-
+import { useAuthStore } from "@/store/useAuthStore";
 interface LogoProps {
   isLogin?: boolean;
 }
 
 const Logo = ({ isLogin = false }: LogoProps) => {
   const router = useRouter();
-
+  const { isAuthenticated } = useAuthStore();
   const handleLoginPress = () => {
-    router.push("/(screens)/login/UserTypeSelection");
+    {isAuthenticated ? router.push("/(screens)/SettingsProfile") : router.push("/(screens)/login/LoginScreen") };
   };
 
   return (

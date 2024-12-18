@@ -3,19 +3,32 @@ import { View, Text, TextInput, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
 import { LinearGradient } from "expo-linear-gradient";
 import Logo from "@/components/Logo";
+import { loginUser } from "../../../service/userService";
+import { useAuthStore } from "@/store/useAuthStore";
 const LoginScreen: React.FC = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleLogin = () => {
+  const login = useAuthStore((state) => state.login);
+  const handleLogin = async () => {
     if (!email || !password) {
-      Alert.alert("Error", "Por favor, completa todos los campos.");
+      Alert.alert("Error", "Todos los campos son obligatorios");
       return;
     }
 
-    console.log("Intentando iniciar sesión con:", { email, password });
-    Alert.alert("Inicio de sesión exitoso", `Bienvenido, ${email}!`);
+    try {
+      const response = await loginUser({ email, password });
+      const token = response.token;
+
+      if (token) {
+        login(token); 
+        router.push("/");
+      } else {
+        Alert.alert("Error", "No se recibió un token válido");
+      }
+    } catch (error: any) {
+      Alert.alert("Error", error.message);
+    }
   };
 
   return (
@@ -27,10 +40,9 @@ const LoginScreen: React.FC = () => {
       >
         <Text className="text-white text-base"> {"<< Volver"}</Text>
       </TouchableOpacity>
-      {/* Título */}
+
       <Text className="text-3xl font-bold text-white mb-8">Iniciar Sesión</Text>
 
-      {/* Input para el Email */}
       <TextInput
         value={email}
         onChangeText={setEmail}
@@ -41,7 +53,6 @@ const LoginScreen: React.FC = () => {
         className="w-full bg-[#1E1E1E] text-white p-4 rounded-lg mb-4"
       />
 
-      {/* Input para la Contrase��a */}
       <TextInput
         value={password}
         onChangeText={setPassword}
@@ -51,7 +62,6 @@ const LoginScreen: React.FC = () => {
         className="w-full bg-[#1E1E1E] text-white p-4 rounded-lg mb-8"
       />
 
-      {/* Botón de Login */}
       <TouchableOpacity
         onPress={handleLogin}
         activeOpacity={0.7}
@@ -67,7 +77,6 @@ const LoginScreen: React.FC = () => {
         </LinearGradient>
       </TouchableOpacity>
 
-      {/* Enlace para Registro */}
       <TouchableOpacity className="mt-4">
         <Text className="text-[#3B82F6] text-sm font-medium">
           ¿No tienes cuenta? Regístrate

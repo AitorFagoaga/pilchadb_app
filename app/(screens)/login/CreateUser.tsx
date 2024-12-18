@@ -7,7 +7,6 @@ import {
   ScrollView,
   Switch,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker"; // o usa react-native-picker-select
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import BrandForm from "./BrandForm";
 import UserForm from "./UserForm";

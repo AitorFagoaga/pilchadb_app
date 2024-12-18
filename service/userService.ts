@@ -42,24 +42,28 @@ console.log("API_BASE_URL",API_BASE_URL);
     }
   };
 
-  export const loginUser = async (userData: LoginUserData): Promise<any> => {
+  export const loginUser = async (loginData: LoginUserData): Promise<{ token: string }> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const response = await fetch(`${API_BASE_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userData),
+        body: JSON.stringify(loginData),
       });
   
-      const responseText = await response.text();
-      console.log('Respuesta del servidor:', responseText);
+      const responseBody = await response.text();
   
       if (!response.ok) {
-        throw new Error(`Error ${response.status}: ${responseText}`);
+        try {
+          const errorData = JSON.parse(responseBody);
+          throw new Error(errorData.message || 'Error al iniciar sesión');
+        } catch {
+          throw new Error('Error al iniciar sesión');
+        }
       }
   
-      return JSON.parse(responseText);
+      return { token: responseBody }; 
     } catch (error: any) {
       throw new Error(error.message || 'Error de red');
     }
