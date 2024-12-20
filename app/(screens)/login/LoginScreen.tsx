@@ -19,9 +19,10 @@ const LoginScreen: React.FC = () => {
     try {
       const response = await loginUser({ email, password });
       const token = response.token;
+console.log("response",response);
 
       if (token) {
-        login(token); 
+        login(response); 
         router.push("/");
       } else {
         Alert.alert("Error", "No se recibió un token válido");

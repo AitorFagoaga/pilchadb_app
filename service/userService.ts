@@ -1,6 +1,7 @@
 // userService.ts
 
 import Constants from 'expo-constants';
+import { jwtDecode } from 'jwt-decode';
 
 export interface RegisterUserData {
     username: string;
@@ -9,6 +10,14 @@ export interface RegisterUserData {
     age: number;
     isPremium: boolean;
     isBrand: boolean;
+  }
+
+
+  interface TokenPayload {
+    sub: string; // ID del usuario
+    email: string;
+    username?: string;
+    exp: number; // Tiempo de expiración
   }
 
   export interface LoginUserData {
@@ -23,7 +32,7 @@ console.log("API_BASE_URL",API_BASE_URL);
     console.log("datos",userData);
     
     try {
-      const response = await fetch(`${API_BASE_URL}/register`, {
+      const response = await fetch(`${API_BASE_URL}/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -42,9 +51,9 @@ console.log("API_BASE_URL",API_BASE_URL);
     }
   };
 
-  export const loginUser = async (loginData: LoginUserData): Promise<{ token: string }> => {
+  export const loginUser = async (loginData: LoginUserData): Promise<{ token: string, id: string, email: string, username: string, isPremium: boolean, isBrand: boolean }> => {
     try {
-      const response = await fetch(`${API_BASE_URL}/login`, {
+      const response = await fetch(`${API_BASE_URL}/users/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,20 +61,26 @@ console.log("API_BASE_URL",API_BASE_URL);
         body: JSON.stringify(loginData),
       });
   
-      const responseBody = await response.text();
+      const responseBody = await response.json();
   
       if (!response.ok) {
-        try {
-          const errorData = JSON.parse(responseBody);
-          throw new Error(errorData.message || 'Error al iniciar sesión');
-        } catch {
-          throw new Error('Error al iniciar sesión');
-        }
+        throw new Error(responseBody.message || 'Error al iniciar sesión');
       }
-  
-      return { token: responseBody }; 
+
+      return {
+        token: responseBody.token,
+        id: responseBody.id,
+        email: responseBody.email,
+        username: responseBody.username,
+        isPremium: responseBody.premium,
+        isBrand: responseBody.brand,
+      };
     } catch (error: any) {
       throw new Error(error.message || 'Error de red');
     }
+  };
+
+  export const decodeToken = (token: string): TokenPayload => {
+    return jwtDecode<TokenPayload>(token);
   };
   
