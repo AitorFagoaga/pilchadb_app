@@ -1,11 +1,14 @@
 import { View, Text, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import SearchBar from "../../components/SearchBar";
+import SearchBar from "../../components/SearchBar"
 import Logo from "../../components/Logo";
 import BrandCard, { Card } from "../../components/BrandCard";
 import CarouselGarment, {
   Card as CardGarment,
 } from "../../components/CarouselGarment";
+import { searchBrands } from "@/service/brandService";
+import React, { useEffect, useState } from "react";
+
 const DATA: Card[] = [
   {
     id: 1,
@@ -74,11 +77,31 @@ const DATA_GARMENT: CardGarment[] = [
 
 export default function ExploreScreen() {
   const inset = useSafeAreaInsets();
+  const [searchResults, setSearchResults] = useState<Card[]>([]); // Estado para guardar las marcas filtradas
+  const [isSearching, setIsSearching] = useState(false); // Estado para manejar el loading o búsquedas activas
 
-  const handleSearch = async (query: string) => {
+  const handleSearch = async (input: string) => {
+    if (!input.trim()) {
+      // Si no hay texto, reinicia los resultados
+      setSearchResults([]);
+      setIsSearching(false);
+      return;
+    }
+
+    setIsSearching(true); // Inicia búsqueda
     try {
-    } catch (error) {
-      console.error("Error en la búsqueda:", error);
+      const results = await searchBrands(input);
+      setSearchResults(
+        results.map((brand: any) => ({
+          id: brand.id,
+          imageUrl: brand.imageUrl,
+          title: brand.name,
+        }))
+      );
+    } catch (error: any) {
+      console.error("Error al buscar marcas:", error.message);
+    } finally {
+      setIsSearching(false); // Finaliza búsqueda
     }
   };
 
@@ -105,8 +128,16 @@ export default function ExploreScreen() {
             paddingBottom: inset.bottom,
           }}
         >
-          <CarouselGarment title="Prendas destacadas" cards={DATA_GARMENT} />
-          <BrandCard title="Marcas destacadas" cards={DATA} />
+          {isSearching ? (
+            <Text className="text-center text-white mt-4">Buscando...</Text>
+          ) : searchResults.length > 0 ? (
+            <BrandCard title="Resultados de búsqueda" cards={searchResults} />
+          ) : (
+            <>
+              <CarouselGarment title="Prendas destacadas" cards={DATA_GARMENT} />
+              <BrandCard title="Marcas destacadas" cards={DATA} />
+            </>
+          )}
         </ScrollView>
       </View>
     </View>
