@@ -1,7 +1,7 @@
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { Pressable, Text, View } from "react-native";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import * as Linking from "expo-linking"; // Importar el módulo de Linking
+import * as Linking from "expo-linking"; 
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 const LinksAndSaveBrand = () => {
@@ -15,7 +15,7 @@ const LinksAndSaveBrand = () => {
   };
 
   return (
-    <View className="flex-row justify-between p-4">
+    <View className="flex-row justify-between pl-4 pb-4">
       <View className="flex flex-col ">
         {/* Instagram */}
         <Pressable
@@ -31,19 +31,6 @@ const LinksAndSaveBrand = () => {
           <Text className="text-white text-xs font-light">Instagram</Text>
         </Pressable>
 
-        {/* Website */}
-        <Pressable
-          onPress={() => handleOpenLink("https://tu-sitio-web.com")}
-          className="flex-row items-center  gap-2 text-xs mt-1"
-        >
-          <MaterialCommunityIcons
-            name="web"
-            fontWeight="light"
-            size={10}
-            color="white"
-          />
-          <Text className="text-white text-xs font-light">Website</Text>
-        </Pressable>
       </View>
     </View>
   );
